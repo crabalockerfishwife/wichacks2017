@@ -8,5 +8,7 @@
 	<title>Home</title>
 </head>
 <body onload="startGame()">
+	<p id="block1"></p>
+	<p id="block2"></p>
 </body>
 </html>

@@ -16,9 +16,11 @@ var crash_right = false;
 var crash_down = false;
 var crash_up = false;
 var myBlock;
+var myBlock2;
 var string;
 
 function startGame() {
+    document.getElementById("block1").innerHTML = "Use ASWD to move";
     myGamePiece = new component(25, 25, "images/blue_man.png", 25, 25, "image");
     myObstacle1  = new component(25, 25, "images/Border.jpeg", 300, 100, "image"); 
     Obstacles[0] = myObstacle1;
@@ -50,13 +52,16 @@ window.addEventListener("keyup", onKeyUp, false);
 
 function onKeyDown(event) {
   var keyCode = event.keyCode;
+  if (document.getElementById("block1").innerHTML == "Use ASWD to move") {
+    document.getElementById("block1").innerHTML = "";
+  }
   switch (keyCode) {
     case 68: //d
       keyW = false;
       keyA = false;
       keyS = false;
       keyD = true;
-      console.log("keyW: "+keyW+" keyA: "+keyA+" keyS: "+keyS+" keyD: "+keyD);
+      //console.log("keyW: "+keyW+" keyA: "+keyA+" keyS: "+keyS+" keyD: "+keyD);
       var crash_test = true;
       for (i=0; i<Obstacles.length; i++) {
            if (Obstacles[i]!=undefined){
@@ -102,7 +107,7 @@ function onKeyDown(event) {
       keyA = false;
       keyS = true;
       keyD = false;
-      console.log("keyW: "+keyW+" keyA: "+keyA+" keyS: "+keyS+" keyD: "+keyD);
+      //console.log("keyW: "+keyW+" keyA: "+keyA+" keyS: "+keyS+" keyD: "+keyD);
       var crash_test = true;
       for (i=0; i<Obstacles.length; i++) {
            if (Obstacles[i]!=undefined){
@@ -140,7 +145,7 @@ function onKeyDown(event) {
       keyA = true;
       keyS = false;
       keyD = false;
-      console.log("keyW: "+keyW+" keyA: "+keyA+" keyS: "+keyS+" keyD: "+keyD);
+      //console.log("keyW: "+keyW+" keyA: "+keyA+" keyS: "+keyS+" keyD: "+keyD);
       var crash_test = true;
       for (i=0; i<Obstacles.length; i++) {
            if (Obstacles[i]!=undefined){
@@ -178,7 +183,7 @@ function onKeyDown(event) {
       keyA = false;
       keyS = false;
       keyD = false;
-      console.log("keyW: "+keyW+" keyA: "+keyA+" keyS: "+keyS+" keyD: "+keyD);
+      //console.log("keyW: "+keyW+" keyA: "+keyA+" keyS: "+keyS+" keyD: "+keyD);
       var crash_test = true;
       for (i=0; i<Obstacles.length; i++) {
            if (Obstacles[i]!=undefined){
@@ -217,6 +222,9 @@ function onKeyDown(event) {
 function onKeyUp(event) {
   var keyCode = event.keyCode;
   switch (keyCode) {
+    case 72: //h
+      keyH = false;
+      break;
     case 68: //d
       keyD = false;
       break;
@@ -285,7 +293,7 @@ function component(width, height, color, x, y, type) {
         var otherbottom = otherobj.y + (otherobj.height);
         var otherymiddle = otherobj.y + (otherobj.height/2);
         var crash = true;
-        console.log("My middle: "+myxmiddle+" Other middle: "+otherxmiddle);
+        console.log("My x middle: "+myxmiddle+" Other x middle: "+otherxmiddle);
         if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
             crash = false;
         }
@@ -318,15 +326,22 @@ function component(width, height, color, x, y, type) {
       var mytop = this.y;
       var mybottom = this.y + (this.height);
       var blockleft = someblock.x;
-      var blockright = someblock.x + (otherobj.width);
+      var blockright = someblock.x + (someblock.width);
       var blocktop = someblock.y;
-      var blockbottom = someblock.y + (otherobj.height);
+      var blockbottom = someblock.y + (someblock.height);
 
-      //Object completely passes over the block
-      if ((mybottom > blockbottom) || (mytop < blocktop) || (myright > blockright) || (myleft < blockleft)) {
-            console.log("works");
-        }
-    }
+     //Object completely passes over the block
+      if ((mybottom == blockbottom) && (mytop == blocktop) && (myright == blockright) && (myleft == blockleft)) {
+            console.log("hit block");
+            if (someblock == myBlock) {
+              gotBlock1 = true;
+              document.getElementById("block1").innerHTML = "If carina wants to eat noodles,";
+            } /*else if (someblock == myBlock2) {
+              gotBlock2 = true;
+              document.getElementById("block2").innerHTML = "she will go to the pho restaurant,";
+            }  */      
+      }        
+   }
 }
 
 function updateGameArea() {
@@ -336,7 +351,10 @@ function updateGameArea() {
           Obstacles[i].update();
       }
     }
+    myGamePiece.getBlock(myBlock);
+    //myGamePiece.getBlock(myBlock2);
     myBlock.update();
+    //myBlock2.update();
     myGamePiece.update();
 }
 
