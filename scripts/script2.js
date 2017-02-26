@@ -4,6 +4,10 @@ var keyW = false;
 var keyA = false;
 var keyS = false;
 var keyD = false;
+var crash_left = false;
+var crash_right = false;
+var crash_down = false;
+var crash_up = false;
 
 function startGame() {
     myGamePiece = new component(30, 30, "red", 10, 120);
@@ -26,6 +30,11 @@ function onKeyDown(event) {
       if (!myGamePiece.crashWith(myObstacle)) {
          moveright();
         }
+      if (crash_right){
+        moveleft();
+        crash_right = false;
+        myGamePiece.crashWith(myObstacle);
+       }
       break;
     case 83: //s
       keyW = false;
@@ -108,33 +117,44 @@ function component(width, height, color, x, y) {
     this.crashWith = function(otherobj) {
         var myleft = this.x;
         var myright = this.x + (this.width);
+        var myxmiddle = this.x + (this.width/2);
         var mytop = this.y;
         var mybottom = this.y + (this.height);
+        var myymiddle = this.y + (this.height/2);
         var otherleft = otherobj.x;
         var otherright = otherobj.x + (otherobj.width);
+        var otherxmiddle = otherobj.x + (otherobj.width/2);
         var othertop = otherobj.y;
         var otherbottom = otherobj.y + (otherobj.height);
+        var otherymiddle = otherobj.y + (otherobj.height/2);
         var crash = true;
+        /*
         var crash_left = false;
         var crash_right = false;
         var crash_down = false;
         var crash_up = false;
+        */
+        console.log("My middle: "+myxmiddle+" Other middle: "+otherxmiddle);
         if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
             crash = false;
         }
         if (crash) {
-            if (myright >= otherleft){
+            //Object is to the left of the obstacle
+            if (myxmiddle < otherxmiddle) {
                 crash_right = true;
-             }
-            else if (myleft <= otherright){
+            }
+            //Object is to the right of the obstacle
+            else if (myxmiddle > otherxmiddle) {
                 crash_left = true;
-             }
-            else if (myright >= otherleft){
+            }
+            //Object is above the obstacle
+            else if (myymiddle > otherymiddle){
                 crash_up = true;
             }
-            else if (myright >= otherleft){
+            //Object is below the obstacle
+            else {
                 crash_down = true;
-             }
+            }
         }
         console.log("LeftCrash status: "+crash_left+" RightCrash status: "+crash_right+" DownCrash status: "+crash_down+" CrashUp status: "+crash_up);
         console.log("Crash status: "+crash);
