@@ -8,10 +8,13 @@ var crash_left = false;
 var crash_right = false;
 var crash_down = false;
 var crash_up = false;
+var myBlock;
+var string;
 
 function startGame() {
     myGamePiece = new component(30, 30, "red", 10, 120);
-    myObstacle  = new component(10, 200, "green", 300, 120);    
+    myObstacle  = new component(10, 200, "green", 300, 120); 
+    myBlock = new component(10, 10, "blue", 200, 200);   
     myGameArea.start();
 }
 
@@ -186,9 +189,9 @@ function component(width, height, color, x, y) {
       var blocktop = someblock.y;
       var blockbottom = someblock.y + (otherobj.height);
 
-      if ((mybottom < blocktop) || (mytop > blockbottom) || (myright < blockleft) || (myleft > blockright)) {
-            this.color = "grey";
-            
+      //Object completely passes over the block
+      if ((mybottom > blockbottom) || (mytop < blocktop) || (myright > blockright) || (myleft < blockleft)) {
+            console.log("works");
 
         }
         
@@ -199,6 +202,7 @@ function component(width, height, color, x, y) {
 function updateGameArea() {
     myGameArea.clear();
     myObstacle.update();
+    myBlock.update();
     myGamePiece.update();
 }
 /*
