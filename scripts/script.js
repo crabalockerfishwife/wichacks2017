@@ -1,5 +1,4 @@
 var myGamePiece;
-//var myObstacle;
 var myObstacle1, myObstacle2, myObstacle3, myObstacle4, myObstacle5, myObstacle6, myObstacle7, myObstacle8, 
   myObstacle9, myObstacle10, myObstacle11, myObstacle12, myObstacle13, myObstacle14, myObstacle15, myObstacle16,
   myObstacle17, myObstacle18, myObstacle19, myObstacle20, myObstacle21, myObstacle22, myObstacle23, myObstacle24, 
@@ -20,9 +19,7 @@ var myBlock;
 var string;
 
 function startGame() {
-    myGamePiece = new component(25, 25, "images/blue_man.jpeg", 25, 25, "image");
-    //myObstacle  = new component(30, 30, "images/Border.jpeg", 300, 120, "image"); 
-    
+    myGamePiece = new component(25, 25, "images/blue_man.png", 25, 25, "image");
     myObstacle1  = new component(25, 25, "images/Border.jpeg", 300, 100, "image"); 
     Obstacles[0] = myObstacle1;
     myObstacle2  = new component(25, 25, "images/Border.jpeg", 300, 125, "image"); 
@@ -273,11 +270,6 @@ function component(width, height, color, x, y, type) {
             ctx.fillStyle = color;
             ctx.fillRect(this.x, this.y, this.width, this.height);
         }
-        /*
-        ctx = myGameArea.context;
-        ctx.fillStyle = color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        */
     }
     this.crashWith = function(otherobj) {
         var myleft = this.x;
@@ -293,12 +285,6 @@ function component(width, height, color, x, y, type) {
         var otherbottom = otherobj.y + (otherobj.height);
         var otherymiddle = otherobj.y + (otherobj.height/2);
         var crash = true;
-        /*
-        var crash_left = false;
-        var crash_right = false;
-        var crash_down = false;
-        var crash_up = false;
-        */
         console.log("My middle: "+myxmiddle+" Other middle: "+otherxmiddle);
         if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
             crash = false;
@@ -339,16 +325,12 @@ function component(width, height, color, x, y, type) {
       //Object completely passes over the block
       if ((mybottom > blockbottom) || (mytop < blocktop) || (myright > blockright) || (myleft < blockleft)) {
             console.log("works");
-
         }
-        
-
     }
 }
 
 function updateGameArea() {
     myGameArea.clear();
-    //myObstacle.update();
     for (i=0; i<Obstacles.length; i++) {
       if (Obstacles[i]!=undefined){
           Obstacles[i].update();
@@ -357,58 +339,28 @@ function updateGameArea() {
     myBlock.update();
     myGamePiece.update();
 }
-/*
-function updateGameArea() {
-    if (myGamePiece.crashWith(myObstacle) && keyD == true) {
-        console.log("this is bad");
-        myGameArea.clear();
-        myObstacle.update();
-        /*myGamePiece.x += -1;
-        myGamePiece.y += myGamePiece.speedY;    
-        myGamePiece.update();
-    } else if (myGamePiece.crashWith(myObstacle) && keyA == true) {
-        myGameArea.clear();
-        myObstacle.update();
-        myGamePiece.x += 1;
-        myGamePiece.y += myGamePiece.speedY;    
-        myGamePiece.update();
-    } else if (myGamePiece.crashWith(myObstacle) && keyW == true) {
-        myGameArea.clear();
-        myObstacle.update();
-        myGamePiece.x += myGamePiece.speedX;
-        myGamePiece.y += 1;    
-        myGamePiece.update();
-    } else if (myGamePiece.crashWith(myObstacle) && keyS == true) {
-        myGameArea.clear();
-        myObstacle.update();
-        myGamePiece.x += myGamePiece.speedX;
-        myGamePiece.y += -1;    
-        myGamePiece.update();
-    } else {
-        myGameArea.clear();
-        myObstacle.update();
-        myGamePiece.x += myGamePiece.speedX;
-        myGamePiece.y += myGamePiece.speedY;    
-        myGamePiece.update();
-    }
-}*/
 
 function moveup() {
   //if you're not gonna move out of the screen {
-       myGamePiece.y -= 25;
+  if (myGamePiece.y-25 >= 0){
+    myGamePiece.y -= 25;
+  }
 }
 
 function movedown() {
+  if (myGamePiece.y+25 < 500){
     myGamePiece.y += 25;
+  }
 }
 
 function moveleft() {
+  if (myGamePiece.x-25 >= 0){
     myGamePiece.x -= 25;
+  }
 }
 
 function moveright() {
+  if (myGamePiece.x+25 < 800){
     myGamePiece.x += 25;
-    /*
-    myGamePiece.speedX = 1; 
-    direction = "right";*/
+  }
 }
