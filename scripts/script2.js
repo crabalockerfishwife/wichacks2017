@@ -10,8 +10,8 @@ var crash_down = false;
 var crash_up = false;
 
 function startGame() {
-    myGamePiece = new component(30, 30, "red", 10, 120);
-    myObstacle  = new component(10, 200, "green", 300, 120);    
+    myGamePiece = new component(30, 30, "images/blue_man.jpeg", 10, 120, "image");
+    myObstacle  = new component(30, 30, "images/Border.jpeg", 300, 120, "image");    
     myGameArea.start();
 }
 
@@ -119,15 +119,32 @@ var myGameArea = {
     }
 }
 
-function component(width, height, color, x, y) {
+function component(width, height, color, x, y, type) {
+    if (type == "image") {
+        this.image = new Image();
+        this.image.src = color;
+    }
     this.width = width;
     this.height = height;  
     this.x = x;
     this.y = y;    
     this.update = function() {
         ctx = myGameArea.context;
+        if (type == "image") {
+            ctx.drawImage(this.image, 
+                this.x, 
+                this.y,
+                this.width, this.height);
+        }
+        else {
+            ctx.fillStyle = color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+        /*
+        ctx = myGameArea.context;
         ctx.fillStyle = color;
         ctx.fillRect(this.x, this.y, this.width, this.height);
+        */
     }
     this.crashWith = function(otherobj) {
         var myleft = this.x;
