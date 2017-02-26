@@ -521,10 +521,15 @@ function moveright() {
 
 function restartGame(){
   myGameArea.clear();
+  document.getElementById("block1").innerHTML = ""
+  document.getElementById("block2").innerHTML = ""
+  document.getElementById("block3").innerHTML = ""
   startGame();
   gotBlock1 = false;
   gotBlock2 = false;
   gotBlock3 = false;
+  tryagain = false;
+  youwon = false;
   myGamePiece.update();
 
 }
