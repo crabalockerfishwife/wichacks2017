@@ -175,6 +175,25 @@ function component(width, height, color, x, y) {
         console.log("Crash status: "+crash);
         return crash;
     }
+
+    this.getBlock = function(someblock){
+      var myleft = this.x;
+      var myright = this.x + (this.width);
+      var mytop = this.y;
+      var mybottom = this.y + (this.height);
+      var blockleft = someblock.x;
+      var blockright = someblock.x + (otherobj.width);
+      var blocktop = someblock.y;
+      var blockbottom = someblock.y + (otherobj.height);
+
+      if ((mybottom < blocktop) || (mytop > blockbottom) || (myright < blockleft) || (myleft > blockright)) {
+            this.color = "grey";
+            
+
+        }
+        
+
+    }
 }
 
 function updateGameArea() {
