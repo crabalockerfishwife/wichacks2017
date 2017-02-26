@@ -62,9 +62,9 @@ function startGame() {
     myObstacle16  = new component(50, 150, "images/BushA.png", 600, 200, "image");  
     Obstacles[15] = myObstacle16;*/
     
-    myBlock1 = new component(25, 25, "#FFFF4D", 125, 275); //Block1 is yellow  
-    myBlock2 = new component(25, 25, "#4D4DFF", 650, 100); //Block2 is blue 
-    myBlock3 = new component(25, 25, "#FF1A1A", 675, 375); //Block3 is red  
+    myBlock1 = new component(25, 25, "#FFFF4D", 125, 275, "block"); //Block1 is yellow  
+    myBlock2 = new component(25, 25, "#4D4DFF", 650, 100, "block"); //Block2 is blue 
+    myBlock3 = new component(25, 25, "#FF1A1A", 675, 375, "block"); //Block3 is red  
     myGameArea.start();
 }
 
@@ -294,6 +294,26 @@ function component(width, height, color, x, y, type) {
                 this.x, 
                 this.y,
                 this.width, this.height);
+        } else if (type == "block") {
+            if ((this == myBlock1 && gotBlock1) || (this == myBlock2 && gotBlock2)
+                  || (this == myBlock3 && gotBlock3)) {
+              this.color = "rgb(183, 220, 068)";
+              ctx.fillStyle = this.color;
+              ctx.fillRect(this.x, this.y, this.width, this.height);
+            }/* else if (gotBlock2) {
+              myBlock2.color = "rgb(183, 220, 068)";
+              ctx.fillStyle = myBlock2.color;
+              ctx.fillRect(this.x, this.y, this.width, this.height);
+            } else if (gotBlock3) {
+              myBlock3.color = "rgb(183, 220, 068)";
+              ctx.fillStyle = myBlock3.color;
+              ctx.fillRect(this.x, this.y, this.width, this.height);
+            }*/
+            else {
+              ctx.fillStyle = color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+            }
+            
         }
         else {
             ctx.fillStyle = color;
@@ -415,6 +435,7 @@ function component(width, height, color, x, y, type) {
                 gotBlock1 = true;
                 //console.log("on block1");
                 if (!gotBlock2 && !gotBlock3) {
+                  
                   document.getElementById("block1").innerHTML="else if (some_other_condition) {<br>do_something_else}";
                   document.getElementById("block1").className="filled";
                 }
@@ -432,7 +453,7 @@ function component(width, height, color, x, y, type) {
                 }
             }
             // The character is over block 2
-            if (someblock == myBlock2) {
+            else if (someblock == myBlock2) {
               gotBlock2 = true;
               //console.log("on block2");
               if (!gotBlock1 && !gotBlock3) {
@@ -447,13 +468,14 @@ function component(width, height, color, x, y, type) {
               } 
               if (gotBlock1 && gotBlock3) {
                 if (document.getElementById("block3").className=="empty"){
+                  
                   document.getElementById("block3").innerHTML="if (some_condition) {<br>do_something}";
                   document.getElementById("block3").className="filled";
                 }
               }
             }
             // The character is over block 3
-            if (someblock == myBlock3) {
+            else if (someblock == myBlock3) {
               gotBlock3 = true;
               //console.log("on block3");
               if (!gotBlock1 && !gotBlock2) {
@@ -485,10 +507,10 @@ function updateGameArea() {
       }
     }
     myGamePiece.getBlock(myBlock1);
-    myGamePiece.getBlock(myBlock2);
-    myGamePiece.getBlock(myBlock3);
     myBlock1.update();
+    myGamePiece.getBlock(myBlock2);
     myBlock2.update();
+    myGamePiece.getBlock(myBlock3); 
     myBlock3.update();
     myGamePiece.update();
     if (gotBlock1 && gotBlock2 && gotBlock3) {
