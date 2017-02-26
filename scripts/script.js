@@ -1,5 +1,13 @@
 var myGamePiece;
-var myObstacle;
+//var myObstacle;
+var myObstacle1, myObstacle2, myObstacle3, myObstacle4, myObstacle5, myObstacle6, myObstacle7, myObstacle8, 
+  myObstacle9, myObstacle10, myObstacle11, myObstacle12, myObstacle13, myObstacle14, myObstacle15, myObstacle16,
+  myObstacle17, myObstacle18, myObstacle19, myObstacle20, myObstacle21, myObstacle22, myObstacle23, myObstacle24, 
+  myObstacle25, myObstacle26, myObstacle27, myObstacle28, myObstacle29, myObstacle30, myObstacle31, myObstacle32, 
+  myObstacle33, myObstacle34, myObstacle35, myObstacle36, myObstacle37, myObstacle38, myObstacle39, myObstacle40,
+  myObstacle41, myObstacle42, myObstacle43, myObstacle44, myObstacle45, myObstacle46, myObstacle47, myObstacle48,
+  myObstacle49, myObstacle50;
+var Obstacles = new Array(50);
 var keyW = false;
 var keyA = false;
 var keyS = false;
@@ -12,9 +20,31 @@ var myBlock;
 var string;
 
 function startGame() {
-    myGamePiece = new component(30, 30, "images/blue_man.jpeg", 10, 120, "image");
-    myObstacle  = new component(30, 30, "images/Border.jpeg", 300, 120, "image");  
-    myBlock = new component(10, 10, "blue", 200, 200);   
+    myGamePiece = new component(25, 25, "images/blue_man.jpeg", 25, 25, "image");
+    //myObstacle  = new component(30, 30, "images/Border.jpeg", 300, 120, "image"); 
+    
+    myObstacle1  = new component(25, 25, "images/Border.jpeg", 300, 100, "image"); 
+    Obstacles[0] = myObstacle1;
+    myObstacle2  = new component(25, 25, "images/Border.jpeg", 300, 125, "image"); 
+    Obstacles[1] = myObstacle2; 
+    myObstacle3  = new component(25, 25, "images/Border.jpeg", 300, 150, "image"); 
+    Obstacles[2] = myObstacle3;
+    myObstacle4  = new component(25, 25, "images/Border.jpeg", 300, 175, "image");  
+    Obstacles[3] = myObstacle4;
+    myObstacle5  = new component(25, 25, "images/Border.jpeg", 300, 200, "image"); 
+    Obstacles[4] = myObstacle5;
+    myObstacle6  = new component(25, 25, "images/Border.jpeg", 300, 225, "image"); 
+    Obstacles[5] = myObstacle6; 
+    myObstacle7  = new component(25, 25, "images/Border.jpeg", 300, 250, "image"); 
+    Obstacles[6] = myObstacle7;
+    myObstacle8  = new component(25, 25, "images/Border.jpeg", 300, 275, "image"); 
+    Obstacles[7] = myObstacle8; 
+    myObstacle9  = new component(25, 25, "images/Border.jpeg", 300, 300, "image"); 
+    Obstacles[8] = myObstacle9;
+    myObstacle10  = new component(25, 25, "images/Border.jpeg", 300, 325, "image");  
+    Obstacles[9] = myObstacle10;
+    
+    myBlock = new component(25, 25, "blue", 200, 200);   
     myGameArea.start();
 }
 
@@ -30,6 +60,36 @@ function onKeyDown(event) {
       keyS = false;
       keyD = true;
       console.log("keyW: "+keyW+" keyA: "+keyA+" keyS: "+keyS+" keyD: "+keyD);
+      var crash_test = true;
+      for (i=0; i<Obstacles.length; i++) {
+           if (Obstacles[i]!=undefined){
+            //Check to see if there is a crash with this obstacle
+             if (myGamePiece.crashWith(Obstacles[i])){
+               crash_test = false;
+               break;
+             }
+          }
+        }
+      if (crash_test){
+        moveright();
+      }
+      /*
+      if (!myGamePiece.crashWith(myObstacle1) && !myGamePiece.crashWith(myObstacle2)) {
+         moveright();
+        }*/
+      if (crash_right){
+        moveleft();
+        crash_right = false;
+        for (i=0; i<Obstacles.length; i++) {
+           if (Obstacles[i]!=undefined){
+             myGamePiece.crashWith(Obstacles[i]);
+          }
+        }
+        /*
+        myGamePiece.crashWith(myObstacle1);
+        !myGamePiece.crashWith(myObstacle2);*/
+       }
+      /*
       if (!myGamePiece.crashWith(myObstacle)) {
          moveright();
         }
@@ -38,6 +98,7 @@ function onKeyDown(event) {
         crash_right = false;
         myGamePiece.crashWith(myObstacle);
        }
+       */
       break;
     case 83: //s
       keyW = false;
@@ -45,6 +106,29 @@ function onKeyDown(event) {
       keyS = true;
       keyD = false;
       console.log("keyW: "+keyW+" keyA: "+keyA+" keyS: "+keyS+" keyD: "+keyD);
+      var crash_test = true;
+      for (i=0; i<Obstacles.length; i++) {
+           if (Obstacles[i]!=undefined){
+            //Check to see if there is a crash with this obstacle
+             if (myGamePiece.crashWith(Obstacles[i])){
+               crash_test = false;
+               break;
+             }
+          }
+        }
+      if (crash_test){
+        movedown();
+      }
+      if (crash_down){
+        moveup();
+        crash_down = false;
+        for (i=0; i<Obstacles.length; i++) {
+           if (Obstacles[i]!=undefined){
+             myGamePiece.crashWith(Obstacles[i]);
+          }
+        }
+       }
+      /*
       if (!myGamePiece.crashWith(myObstacle)) {
         movedown();
         }
@@ -52,7 +136,7 @@ function onKeyDown(event) {
         moveup();
         crash_down = false;
         myGamePiece.crashWith(myObstacle);
-       }
+       }*/
       break;
     case 65: //a
       keyW = false;
@@ -60,6 +144,29 @@ function onKeyDown(event) {
       keyS = false;
       keyD = false;
       console.log("keyW: "+keyW+" keyA: "+keyA+" keyS: "+keyS+" keyD: "+keyD);
+      var crash_test = true;
+      for (i=0; i<Obstacles.length; i++) {
+           if (Obstacles[i]!=undefined){
+            //Check to see if there is a crash with this obstacle
+             if (myGamePiece.crashWith(Obstacles[i])){
+               crash_test = false;
+               break;
+             }
+          }
+        }
+      if (crash_test){
+        moveleft();
+      }
+      if (crash_left){
+        moveright();
+        crash_left = false;
+        for (i=0; i<Obstacles.length; i++) {
+           if (Obstacles[i]!=undefined){
+             myGamePiece.crashWith(Obstacles[i]);
+          }
+        }
+       }
+      /*
       if (!myGamePiece.crashWith(myObstacle)) {
          moveleft();
         }
@@ -67,7 +174,7 @@ function onKeyDown(event) {
         moveright();
         crash_left = false;
         myGamePiece.crashWith(myObstacle);
-       }
+       }*/
       break;
     case 87: //w
       keyW = true;
@@ -75,6 +182,29 @@ function onKeyDown(event) {
       keyS = false;
       keyD = false;
       console.log("keyW: "+keyW+" keyA: "+keyA+" keyS: "+keyS+" keyD: "+keyD);
+      var crash_test = true;
+      for (i=0; i<Obstacles.length; i++) {
+           if (Obstacles[i]!=undefined){
+            //Check to see if there is a crash with this obstacle
+             if (myGamePiece.crashWith(Obstacles[i])){
+               crash_test = false;
+               break;
+             }
+          }
+        }
+      if (crash_test){
+        moveup();
+      }
+      if (crash_up){
+        movedown();
+        crash_up = false;
+        for (i=0; i<Obstacles.length; i++) {
+           if (Obstacles[i]!=undefined){
+             myGamePiece.crashWith(Obstacles[i]);
+          }
+        }
+       }
+      /*
       if (!myGamePiece.crashWith(myObstacle)) {
          moveup();
          }
@@ -82,7 +212,7 @@ function onKeyDown(event) {
         movedown();
         crash_up = false;
         myGamePiece.crashWith(myObstacle);
-       }
+       }*/
       break;
   }
 } 
@@ -218,7 +348,12 @@ function component(width, height, color, x, y, type) {
 
 function updateGameArea() {
     myGameArea.clear();
-    myObstacle.update();
+    //myObstacle.update();
+    for (i=0; i<Obstacles.length; i++) {
+      if (Obstacles[i]!=undefined){
+          Obstacles[i].update();
+      }
+    }
     myBlock.update();
     myGamePiece.update();
 }
@@ -259,19 +394,20 @@ function updateGameArea() {
 }*/
 
 function moveup() {
-    myGamePiece.y -= 10;
+  //if you're not gonna move out of the screen {
+       myGamePiece.y -= 25;
 }
 
 function movedown() {
-    myGamePiece.y += 10;
+    myGamePiece.y += 25;
 }
 
 function moveleft() {
-    myGamePiece.x -= 10;
+    myGamePiece.x -= 25;
 }
 
 function moveright() {
-    myGamePiece.x += 10;
+    myGamePiece.x += 25;
     /*
     myGamePiece.speedX = 1; 
     direction = "right";*/
