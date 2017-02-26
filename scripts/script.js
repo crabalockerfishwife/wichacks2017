@@ -15,35 +15,54 @@ var crash_left = false;
 var crash_right = false;
 var crash_down = false;
 var crash_up = false;
-var myBlock;
+var myBlock1;
 var myBlock2;
+var myBlock3;
+var gotBlock1 = false;
+var gotBlock2 = false;
+var gotBlock3 = false;
 var string;
 
 function startGame() {
     document.getElementById("block1").innerHTML = "Use ASWD to move";
-    myGamePiece = new component(25, 25, "images/blue_man.png", 25, 25, "image");
-    myObstacle1  = new component(25, 25, "images/Border.jpeg", 300, 100, "image"); 
+    myGamePiece = new component(25, 25, "images/blue_man.png", 50, 50, "image");
+    myObstacle1  = new component(25, 400, "images/sideA.png", 0, 0, "image"); 
     Obstacles[0] = myObstacle1;
-    myObstacle2  = new component(25, 25, "images/Border.jpeg", 300, 125, "image"); 
+    myObstacle2  = new component(100, 25, "images/sideB.png", 25, 0, "image"); 
     Obstacles[1] = myObstacle2; 
-    myObstacle3  = new component(25, 25, "images/Border.jpeg", 300, 150, "image"); 
+    myObstacle3  = new component(100, 125, "images/TreeD.png", 125, 0, "image"); 
     Obstacles[2] = myObstacle3;
-    myObstacle4  = new component(25, 25, "images/Border.jpeg", 300, 175, "image");  
+    myObstacle4  = new component(600, 100, "images/Big_Cliff.png", 0, 400, "image");  
     Obstacles[3] = myObstacle4;
-    myObstacle5  = new component(25, 25, "images/Border.jpeg", 300, 200, "image"); 
+    myObstacle5  = new component(550, 25, "images/SideC.png", 225, 0, "image"); 
     Obstacles[4] = myObstacle5;
-    myObstacle6  = new component(25, 25, "images/Border.jpeg", 300, 225, "image"); 
+    myObstacle6  = new component(25, 475, "images/SideD.png", 775, 0, "image"); 
     Obstacles[5] = myObstacle6; 
-    myObstacle7  = new component(25, 25, "images/Border.jpeg", 300, 250, "image"); 
+    myObstacle7  = new component(175, 25, "images/SideE.png", 600, 475, "image"); 
     Obstacles[6] = myObstacle7;
-    myObstacle8  = new component(25, 25, "images/Border.jpeg", 300, 275, "image"); 
+    myObstacle8  = new component(100, 125, "images/ATree.png", 500, 125, "image"); 
     Obstacles[7] = myObstacle8; 
-    myObstacle9  = new component(25, 25, "images/Border.jpeg", 300, 300, "image"); 
+    myObstacle9  = new component(175, 50, "images/cliff.png", 600, 200, "image"); 
     Obstacles[8] = myObstacle9;
-    myObstacle10  = new component(25, 25, "images/Border.jpeg", 300, 325, "image");  
+    myObstacle10  = new component(50, 50, "images/CTree.png", 325, 150, "image");  
     Obstacles[9] = myObstacle10;
+    myObstacle11  = new component(50, 150, "images/BushA.png", 325, 200, "image");  
+    Obstacles[10] = myObstacle11;
+    myObstacle12  = new component(75, 75, "images/BTree.png", 250, 275, "image");  
+    Obstacles[11] = myObstacle12;
+    myObstacle13  = new component(75, 75, "images/BTree.png", 175, 325, "image");  
+    Obstacles[12] = myObstacle13;
+    myObstacle14  = new component(50, 50, "images/CTree.png", 250, 350, "image");  
+    Obstacles[13] = myObstacle14;
+    myObstacle15  = new component(50, 50, "images/CTree.png", 300, 350, "image");  
+    Obstacles[14] = myObstacle15;
+    /*
+    myObstacle16  = new component(50, 150, "images/BushA.png", 600, 200, "image");  
+    Obstacles[15] = myObstacle16;*/
     
-    myBlock = new component(25, 25, "blue", 200, 200);   
+    myBlock1 = new component(25, 25, "#FFFF4D", 125, 275); //Block1 is yellow  
+    myBlock2 = new component(25, 25, "#4D4DFF", 650, 100); //Block2 is blue 
+    myBlock3 = new component(25, 25, "#FF1A1A", 675, 375); //Block3 is red  
     myGameArea.start();
 }
 
@@ -293,27 +312,82 @@ function component(width, height, color, x, y, type) {
         var otherbottom = otherobj.y + (otherobj.height);
         var otherymiddle = otherobj.y + (otherobj.height/2);
         var crash = true;
+        console.log("#######");
+        console.log(otherobj);
+        console.log("My right: "+myright+" Other left: "+otherleft);
+        console.log("My left: "+myleft+" Other right: "+otherright);
+        console.log("My top: "+mytop+" Other bottom: "+otherbottom);
+        console.log("My bottom: "+mybottom+" Other top: "+othertop);
         console.log("My x middle: "+myxmiddle+" Other x middle: "+otherxmiddle);
+        console.log("My y middle: "+myymiddle+" Other y middle: "+otherymiddle);
         if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
             crash = false;
+            crash_right = false;
+            crash_left = false;
+            crash_up = false;
+            crash_down = false;
         }
         if (crash) {
             //Object is to the left of the obstacle
             if (myxmiddle < otherxmiddle) {
-                crash_right = true;
+                //Object is within proximity of the obstacle to its right so it's crashing into it on the right
+                if (myright == otherleft){
+                  crash_right = true;
+                }
+                /*
+                crash_left = false;
+                crash_up = false;
+                crash_down = false;*/
             }
             //Object is to the right of the obstacle
-            else if (myxmiddle > otherxmiddle) {
+            if ((myxmiddle > otherxmiddle)) {
+              //Object is within proximity of the obstacle to its left so it's crashing into it on the left
+              if (myleft == otherright){
                 crash_left = true;
-            }
-            //Object is above the obstacle
-            else if (myymiddle > otherymiddle){
-                crash_up = true;
+              }
             }
             //Object is below the obstacle
-            else {
-                crash_down = true;
+            if ((myymiddle > otherymiddle)){
+              //Object is within proximity of the obstacle above it so it's crashing into it above
+              if (mytop == otherbottom){
+                crash_up = true;
+              }
             }
+            //Object is above the obstacle
+            if ((myymiddle < otherymiddle)){
+              //Object is within proximity of the obstacle below it so it's crashing into it below
+              if (mybottom == othertop){
+                crash_down = true;
+              }
+            }
+            //Four corner cases...set variables to false in these cases
+            if (crash_right && crash_down) {
+              crash_right = false;
+              crash_down = false;
+              crash = false;
+            }
+            if (crash_right && crash_up) {
+              crash_right = false;
+              crash_up = false;
+              crash = false;
+            }
+            if (crash_left && crash_down) {
+              crash_left = false;
+              crash_down = false;
+              crash = false;
+            }
+            if (crash_left && crash_up) {
+              crash_left = false;
+              crash_up = false;
+              crash = false;
+            }
+            /*
+            else {
+                crash_right = false;
+                crash_left = false;
+                crash_up = false;
+                crash_down = false;
+            }*/
         }
         console.log("LeftCrash status: "+crash_left+" RightCrash status: "+crash_right+" DownCrash status: "+crash_down+" CrashUp status: "+crash_up);
         console.log("Crash status: "+crash);
@@ -329,20 +403,75 @@ function component(width, height, color, x, y, type) {
       var blockright = someblock.x + (someblock.width);
       var blocktop = someblock.y;
       var blockbottom = someblock.y + (someblock.height);
-
      //Object completely passes over the block
       if ((mybottom == blockbottom) && (mytop == blocktop) && (myright == blockright) && (myleft == blockleft)) {
-            console.log("hit block");
-            if (someblock == myBlock) {
+            //console.log("hit block");
+            // The character is over block 1
+            if (someblock == myBlock1) {
               gotBlock1 = true;
-              document.getElementById("block1").innerHTML = "If carina wants to eat noodles,";
-            } /*else if (someblock == myBlock2) {
+              //console.log("on block1");
+              if (!gotBlock2 && !gotBlock3) {
+                document.getElementById("block1").innerHTML="You got block1";
+                document.getElementById("block1").className="filled";
+              }
+              if ((gotBlock2 && !gotBlock3) || (!gotBlock2 && gotBlock3)) {
+                if (document.getElementById("block2").className=="empty"){
+                  document.getElementById("block2").innerHTML="You got block1";
+                  document.getElementById("block2").className="filled";
+                }
+              } 
+              if (gotBlock2 && gotBlock3) {
+                if (document.getElementById("block3").className=="empty"){
+                  document.getElementById("block3").innerHTML="You got block1";
+                  document.getElementById("block3").className="filled";
+                }
+              }
+            }
+            // The character is over block 2
+            if (someblock == myBlock2) {
               gotBlock2 = true;
-              document.getElementById("block2").innerHTML = "she will go to the pho restaurant,";
-            }  */      
-      }        
+              //console.log("on block2");
+              if (!gotBlock1 && !gotBlock3) {
+                document.getElementById("block1").innerHTML="You got block2";
+                document.getElementById("block1").className="filled";
+              }
+              if ((gotBlock1 && !gotBlock3) || (!gotBlock1 && gotBlock3)) {
+                if (document.getElementById("block2").className=="empty"){
+                  document.getElementById("block2").innerHTML="You got block2";
+                  document.getElementById("block2").className="filled";
+                }
+              } 
+              if (gotBlock1 && gotBlock3) {
+                if (document.getElementById("block3").className=="empty"){
+                  document.getElementById("block3").innerHTML="You got block2";
+                  document.getElementById("block3").className="filled";
+                }
+              }
+            }
+            // The character is over block 3
+            if (someblock == myBlock3) {
+              gotBlock3 = true;
+              //console.log("on block3");
+              if (!gotBlock1 && !gotBlock2) {
+                document.getElementById("block1").innerHTML="You got block3";
+                document.getElementById("block1").className="filled";
+              }
+              if ((gotBlock1 && !gotBlock2) || (!gotBlock1 && gotBlock2)) {
+                if (document.getElementById("block2").className=="empty"){
+                  document.getElementById("block2").innerHTML="You got block3";
+                  document.getElementById("block2").className="filled";
+                }
+              } 
+              if (gotBlock1 && gotBlock2) {
+                if (document.getElementById("block3").className=="empty"){
+                  document.getElementById("block3").innerHTML="You got block3";
+                  document.getElementById("block3").className="filled";
+                }
+              }
+            }
+        }  
+      }
    }
-}
 
 function updateGameArea() {
     myGameArea.clear();
@@ -351,10 +480,12 @@ function updateGameArea() {
           Obstacles[i].update();
       }
     }
-    myGamePiece.getBlock(myBlock);
-    //myGamePiece.getBlock(myBlock2);
-    myBlock.update();
-    //myBlock2.update();
+    myGamePiece.getBlock(myBlock1);
+    myGamePiece.getBlock(myBlock2);
+    myGamePiece.getBlock(myBlock3);
+    myBlock1.update();
+    myBlock2.update();
+    myBlock3.update();
     myGamePiece.update();
 }
 

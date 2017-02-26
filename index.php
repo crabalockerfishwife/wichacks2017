@@ -5,10 +5,11 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<script type="text/javascript" src="scripts/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="scripts/script.js"></script>
-	<title>Home</title>
+	<title>The Blue Man</title>
 </head>
 <body onload="startGame()">
-	<p id="block1"></p>
-	<p id="block2"></p>
+	<p id="block1" class="empty"></p>
+	<p id="block2" class="empty"></p>
+	<p id="block3" class="empty"></p>
 </body>
 </html>
