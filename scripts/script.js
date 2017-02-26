@@ -483,7 +483,7 @@ function updateGameArea() {
     }
     // Update the module to display that the user needs to try again
     if (tryagain && !youwon) {
-      document.getElementById("block1").innerHTML = "Not quite...refresh the page to try again.";
+      document.getElementById("block1").innerHTML = "Not quite...click the restart button to restart";
       document.getElementById("block2").innerHTML = "";
       document.getElementById("block3").innerHTML = "";
     }
