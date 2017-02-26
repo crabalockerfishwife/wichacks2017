@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<script type="text/javascript" src="scripts/jquery-3.1.1.min.js"></script>
-	<script type="text/javascript" src="scripts/script.js"></script>
+	<script type="text/javascript" src="scripts/script2.js"></script>
 	<title>Home</title>
 </head>
 <body onload="startGame()">
@@ -14,12 +14,9 @@
  		<button onmousedown="moveup()" onmouseup="clearmove()" ontouchstart="moveup()">UP</button><br><br>
  		<button onmousedown="moveleft()" onmouseup="clearmove()" ontouchstart="moveleft()">LEFT</button>
   		<button onmousedown="moveright()" onmouseup="clearmove()" ontouchstart="moveright()">RIGHT</button><br><br>
-<<<<<<< HEAD
   		<button onmousedown="movedown()" onmouseup="clearmove()" ontouchstart="movedown()">DOWN</button>
 		-->
-=======
   	<button onmousedown="movedown()" onmouseup="clearmove()" ontouchstart="movedown()">DOWN</button>
->>>>>>> 9c7c3009ec573ac922f8b37bc6a4c4a8e1536569
 	</div>
 </body>
 </html>
