@@ -535,6 +535,7 @@ function updateGameArea() {
       document.getElementById("block2").innerHTML = "";
       document.getElementById("block3").innerHTML = "";
     }
+
 }
 
 function moveup() {
@@ -560,4 +561,14 @@ function moveright() {
   if (myGamePiece.x+25 < 800){
     myGamePiece.x += 25;
   }
+}
+
+function restartGame(){
+  myGameArea.clear();
+  startGame();
+  gotBlock1 = false;
+  gotBlock2 = false;
+  gotBlock3 = false;
+  myGamePiece.update();
+
 }
