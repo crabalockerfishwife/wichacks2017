@@ -45,6 +45,11 @@ function onKeyDown(event) {
       if (!myGamePiece.crashWith(myObstacle)) {
         movedown();
         }
+      if (crash_down){
+        moveup();
+        crash_down = false;
+        myGamePiece.crashWith(myObstacle);
+       }
       break;
     case 65: //a
       keyW = false;
@@ -55,6 +60,11 @@ function onKeyDown(event) {
       if (!myGamePiece.crashWith(myObstacle)) {
          moveleft();
         }
+      if (crash_left){
+        moveright();
+        crash_left = false;
+        myGamePiece.crashWith(myObstacle);
+       }
       break;
     case 87: //w
       keyW = true;
@@ -65,6 +75,11 @@ function onKeyDown(event) {
       if (!myGamePiece.crashWith(myObstacle)) {
          moveup();
          }
+      if (crash_up){
+        movedown();
+        crash_up = false;
+        myGamePiece.crashWith(myObstacle);
+       }
       break;
   }
 } 
