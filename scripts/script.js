@@ -21,10 +21,12 @@ var myBlock3;
 var gotBlock1 = false;
 var gotBlock2 = false;
 var gotBlock3 = false;
-var string;
+var youwon = false;
+var tryagain = false;
+var initialization_string = "The Blue Man needs your help forming an if-else statement!<br>Use ASWD to move.";
 
 function startGame() {
-    document.getElementById("block1").innerHTML = "Use ASWD to move";
+    document.getElementById("block1").innerHTML = initialization_string;
     myGamePiece = new component(25, 25, "images/blue_man.png", 50, 50, "image");
     myObstacle1  = new component(25, 400, "images/sideA.png", 0, 0, "image"); 
     Obstacles[0] = myObstacle1;
@@ -71,7 +73,7 @@ window.addEventListener("keyup", onKeyUp, false);
 
 function onKeyDown(event) {
   var keyCode = event.keyCode;
-  if (document.getElementById("block1").innerHTML == "Use ASWD to move") {
+  if (document.getElementById("block1").innerHTML == initialization_string) {
     document.getElementById("block1").innerHTML = "";
   }
   switch (keyCode) {
@@ -312,6 +314,7 @@ function component(width, height, color, x, y, type) {
         var otherbottom = otherobj.y + (otherobj.height);
         var otherymiddle = otherobj.y + (otherobj.height/2);
         var crash = true;
+        /*
         console.log("#######");
         console.log(otherobj);
         console.log("My right: "+myright+" Other left: "+otherleft);
@@ -319,7 +322,7 @@ function component(width, height, color, x, y, type) {
         console.log("My top: "+mytop+" Other bottom: "+otherbottom);
         console.log("My bottom: "+mybottom+" Other top: "+othertop);
         console.log("My x middle: "+myxmiddle+" Other x middle: "+otherxmiddle);
-        console.log("My y middle: "+myymiddle+" Other y middle: "+otherymiddle);
+        console.log("My y middle: "+myymiddle+" Other y middle: "+otherymiddle);*/
         if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
             crash = false;
             crash_right = false;
@@ -389,8 +392,9 @@ function component(width, height, color, x, y, type) {
                 crash_down = false;
             }*/
         }
+        /*
         console.log("LeftCrash status: "+crash_left+" RightCrash status: "+crash_right+" DownCrash status: "+crash_down+" CrashUp status: "+crash_up);
-        console.log("Crash status: "+crash);
+        console.log("Crash status: "+crash);*/
         return crash;
     }
 
@@ -408,42 +412,42 @@ function component(width, height, color, x, y, type) {
             //console.log("hit block");
             // The character is over block 1
             if (someblock == myBlock1) {
-              gotBlock1 = true;
-              //console.log("on block1");
-              if (!gotBlock2 && !gotBlock3) {
-                document.getElementById("block1").innerHTML="You got block1";
-                document.getElementById("block1").className="filled";
-              }
-              if ((gotBlock2 && !gotBlock3) || (!gotBlock2 && gotBlock3)) {
-                if (document.getElementById("block2").className=="empty"){
-                  document.getElementById("block2").innerHTML="You got block1";
-                  document.getElementById("block2").className="filled";
+                gotBlock1 = true;
+                //console.log("on block1");
+                if (!gotBlock2 && !gotBlock3) {
+                  document.getElementById("block1").innerHTML="else if (some_other_condition) {<br>do_something_else}";
+                  document.getElementById("block1").className="filled";
                 }
-              } 
-              if (gotBlock2 && gotBlock3) {
-                if (document.getElementById("block3").className=="empty"){
-                  document.getElementById("block3").innerHTML="You got block1";
-                  document.getElementById("block3").className="filled";
+                if ((gotBlock2 && !gotBlock3) || (!gotBlock2 && gotBlock3)) {
+                  if (document.getElementById("block2").className=="empty"){
+                    document.getElementById("block2").innerHTML="else if (some_other_condition) {<br>do_something_else}";
+                    document.getElementById("block2").className="filled";
+                   }
+                 } 
+                if (gotBlock2 && gotBlock3) {
+                  if (document.getElementById("block3").className=="empty"){
+                    document.getElementById("block3").innerHTML="else if (some_other_condition) {<br>do_something_else}";
+                    document.getElementById("block3").className="filled";
+                  }
                 }
-              }
             }
             // The character is over block 2
             if (someblock == myBlock2) {
               gotBlock2 = true;
               //console.log("on block2");
               if (!gotBlock1 && !gotBlock3) {
-                document.getElementById("block1").innerHTML="You got block2";
+                document.getElementById("block1").innerHTML="if (some_condition) {<br>do_something}";
                 document.getElementById("block1").className="filled";
               }
               if ((gotBlock1 && !gotBlock3) || (!gotBlock1 && gotBlock3)) {
                 if (document.getElementById("block2").className=="empty"){
-                  document.getElementById("block2").innerHTML="You got block2";
+                  document.getElementById("block2").innerHTML="if (some_condition) {<br>do_something}";
                   document.getElementById("block2").className="filled";
                 }
               } 
               if (gotBlock1 && gotBlock3) {
                 if (document.getElementById("block3").className=="empty"){
-                  document.getElementById("block3").innerHTML="You got block2";
+                  document.getElementById("block3").innerHTML="if (some_condition) {<br>do_something}";
                   document.getElementById("block3").className="filled";
                 }
               }
@@ -453,18 +457,18 @@ function component(width, height, color, x, y, type) {
               gotBlock3 = true;
               //console.log("on block3");
               if (!gotBlock1 && !gotBlock2) {
-                document.getElementById("block1").innerHTML="You got block3";
+                document.getElementById("block1").innerHTML="else {<br>do_some_other_thing}";
                 document.getElementById("block1").className="filled";
               }
               if ((gotBlock1 && !gotBlock2) || (!gotBlock1 && gotBlock2)) {
                 if (document.getElementById("block2").className=="empty"){
-                  document.getElementById("block2").innerHTML="You got block3";
+                  document.getElementById("block2").innerHTML="else {<br>do_some_other_thing}";
                   document.getElementById("block2").className="filled";
                 }
               } 
               if (gotBlock1 && gotBlock2) {
                 if (document.getElementById("block3").className=="empty"){
-                  document.getElementById("block3").innerHTML="You got block3";
+                  document.getElementById("block3").innerHTML="else {<br>do_some_other_thing}";
                   document.getElementById("block3").className="filled";
                 }
               }
@@ -487,6 +491,28 @@ function updateGameArea() {
     myBlock2.update();
     myBlock3.update();
     myGamePiece.update();
+    if (gotBlock1 && gotBlock2 && gotBlock3) {
+      //console.log(elseifstatement);
+      if ((document.getElementById("block1").innerHTML == "if (some_condition) {<br>do_something}")
+          && (document.getElementById("block2").innerHTML == "else if (some_other_condition) {<br>do_something_else}")
+          && (document.getElementById("block3").innerHTML == "else {<br>do_some_other_thing}")){
+        //console.log("youwon!!!!!!");
+        youwon = true;
+      }
+      else {
+        tryagain = true;
+      }
+    }
+    if (youwon && !tryagain) {
+      document.getElementById("block1").innerHTML = "YOU WON";
+      document.getElementById("block2").innerHTML = "";
+      document.getElementById("block3").innerHTML = "";
+    }
+    if (tryagain && !youwon) {
+      document.getElementById("block1").innerHTML = "Not quite...refresh the page to try again.";
+      document.getElementById("block2").innerHTML = "";
+      document.getElementById("block3").innerHTML = "";
+    }
 }
 
 function moveup() {
